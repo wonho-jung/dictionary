@@ -18,7 +18,7 @@ export default class HomeContainer extends Component {
   state: myState = {
     results: null,
     inputValue: "",
-    loading: true,
+    loading: false,
     error: "",
   };
 
@@ -50,9 +50,9 @@ export default class HomeContainer extends Component {
       .then((response) => {
         return response.json();
       })
-      .then((res) => {
-        console.log(res);
-        this.setState({ results: [...res] });
+      .then((results) => {
+        console.log(results);
+        this.setState({ results: results });
       })
       .catch((err) => {
         this.setState({ error: err });
@@ -65,6 +65,7 @@ export default class HomeContainer extends Component {
 
   render() {
     const { results, inputValue, loading, error } = this.state;
+    console.log(results);
     return (
       <HomePresenter
         results={results}

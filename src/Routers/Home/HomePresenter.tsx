@@ -1,7 +1,14 @@
 import React from "react";
-
+import "./Home.scss";
+// reassign props
 interface Props {
-  results: string;
+  results: {
+    frequency: number;
+    pronunciation: { all: string };
+    results: object[];
+    syllables: {};
+    word: string;
+  };
   inputValue: string;
   loading: boolean;
   error: string;
@@ -17,10 +24,9 @@ const HomePresenter: React.FC<Props> = ({
   handleSubmit,
   updateInputValue,
 }) => {
-  console.log(inputValue);
+  console.log(results);
   return (
-    <div>
-      test
+    <div className="Container">
       <form onSubmit={handleSubmit}>
         <input
           placeholder="Search word..."
@@ -28,7 +34,11 @@ const HomePresenter: React.FC<Props> = ({
           onChange={updateInputValue}
         />
       </form>
-      <h1>{results}</h1>
+      <div className="resultContainer">
+        <h1>{results?.word}</h1>
+        <h1>{results?.pronunciation.all}</h1>
+        {results?.results.map((result: any) => console.log(result))}
+      </div>
     </div>
   );
 };
