@@ -9,10 +9,6 @@ type myState = {
   error: string;
 };
 
-// interface props {
-//   handleSubmit: (param: string) => void;
-//   updateInputValue: (param: string) => void;
-// }
 export default class HomeContainer extends Component {
   // setState
   state: myState = {
@@ -22,7 +18,7 @@ export default class HomeContainer extends Component {
     error: "",
   };
 
-  //A user serach action
+  //A user serach action with form
   handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     const { inputValue } = this.state;
@@ -51,7 +47,6 @@ export default class HomeContainer extends Component {
         return response.json();
       })
       .then((results) => {
-        console.log(results);
         this.setState({ results: results });
       })
       .catch((err) => {
@@ -65,7 +60,6 @@ export default class HomeContainer extends Component {
 
   render() {
     const { results, inputValue, loading, error } = this.state;
-    console.log(results);
     return (
       <HomePresenter
         results={results}
