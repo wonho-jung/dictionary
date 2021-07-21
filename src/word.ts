@@ -1,7 +1,13 @@
-export interface word {
+export interface Data {
   frequency: number;
   pronunciation: { all: string };
-  results: object[];
+  results: {
+    definition: string;
+    examples: string[];
+    partOfspeech: string;
+    synonyms: string[];
+    typeOf: string[];
+  };
   syllables: { count: number; list: [] };
   word: string;
 }

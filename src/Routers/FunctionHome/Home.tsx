@@ -3,21 +3,24 @@ import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
 import { Button } from "@material-ui/core";
 import Results from "../../components/Results";
 
-interface InputType {
-  input: string;
+interface Data {
+  frequency: number;
+  pronunciation: { all: string };
+  results: {
+    definition: string;
+    examples: string[];
+    partOfspeech: string;
+    synonyms: string[];
+    typeOf: string[];
+  };
+  syllables: { count: number; list: [] };
+  word: string;
 }
-interface loadingType {
-  input: string;
-}
-interface resultsType {
-  input: object[];
-}
-
 function Home() {
-  const [input, setInput] = useState<InputType>("");
-  const [loading, setLoading] = useState(true);
-  const [results, setResults] = useState([]);
-
+  const [input, setInput] = useState<string>("cook");
+  const [loading, setLoading] = useState<boolean>(true);
+  const [data, setData] = useState<Data[]>([]);
+  console.log(data.word);
   //A user serach action with form
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -43,7 +46,7 @@ function Home() {
         return response.json();
       })
       .then((results) => {
-        setInput(results);
+        setData(results);
       })
       .catch((err) => {
         alert(err.message);
@@ -73,11 +76,11 @@ function Home() {
       </div>
 
       <div className="resultContainer">
-        <h1>
-          {results?.word} {results?.pronunciation?.all}
+        {/* <h1>
+          {data?.word} {data?.pronunciation?.all}
         </h1>
-        <h1>frequency:{results?.frequency}</h1>
-        {/* {results?.results?.map((result:  ) => (
+        <h1>frequency:{data?.frequency}</h1> */}
+        {/* {data?.results?.map((result) => (
           <Results
             definition={result.definition}
             derivation={result.derivation}
