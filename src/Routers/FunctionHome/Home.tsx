@@ -2,25 +2,28 @@ import React, { useState } from "react";
 import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
 import { Button } from "@material-ui/core";
 import Results from "../../components/Results";
-
+import "./Home.scss";
+interface ResultsItem {
+  definition: string | undefined;
+  derivation: string[] | undefined;
+  examples: string[];
+  partOfSpeech: string;
+  synonyms: string[];
+  typeOf: string[];
+  hasTypes: string[];
+}
 interface Data {
   frequency: number;
   pronunciation: { all: string };
-  results: {
-    definition: string;
-    examples: string[];
-    partOfspeech: string;
-    synonyms: string[];
-    typeOf: string[];
-  };
+  results: ResultsItem[];
   syllables: { count: number; list: [] };
   word: string;
 }
 function Home() {
   const [input, setInput] = useState<string>("cook");
   const [loading, setLoading] = useState<boolean>(true);
-  const [data, setData] = useState<Data[]>([]);
-  console.log(data.word);
+  const [data, setData] = useState<Data | null>(null);
+  console.log(data);
   //A user serach action with form
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -75,22 +78,28 @@ function Home() {
         </div>
       </div>
 
-      <div className="resultContainer">
-        {/* <h1>
-          {data?.word} {data?.pronunciation?.all}
-        </h1>
-        <h1>frequency:{data?.frequency}</h1> */}
-        {/* {data?.results?.map((result) => (
-          <Results
-            definition={result.definition}
-            derivation={result.derivation}
-            hasTypes={result.hasTypes}
-            partOfspeech={result.partOfspeech}
-            synonyms={result.synonyms}
-            typeOf={result.typeOf}
-            examples={result.examples}
-          />
-        ))} */}
+      <div className="word__container">
+        {data && (
+          <>
+            <h1>
+              {data?.word} {data?.pronunciation?.all}
+            </h1>
+            <h1>frequency:{data?.frequency}</h1>
+          </>
+        )}
+        <div className="results__Container">
+          {data?.results?.map((result) => (
+            <Results
+              definition={result.definition}
+              derivation={result.derivation}
+              hasTypes={result.hasTypes}
+              partOfSpeech={result.partOfSpeech}
+              synonyms={result.synonyms}
+              typeOf={result.typeOf}
+              examples={result.examples}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
