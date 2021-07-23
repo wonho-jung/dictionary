@@ -23,7 +23,7 @@ function Home() {
   const [input, setInput] = useState<string>("cook");
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<Data | null>(null);
-  console.log(data);
+
   //A user serach action with form
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -84,7 +84,7 @@ function Home() {
             <h1>
               {data?.word} {data?.pronunciation?.all}
             </h1>
-            <h1>frequency:{data?.frequency}</h1>
+            {data.frequency && <h1>frequency:{data?.frequency}</h1>}
           </>
         )}
         <div className="results__Container">

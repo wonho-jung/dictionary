@@ -1,3 +1,4 @@
+import { Button } from "@material-ui/core";
 import React from "react";
 import "./Results.scss";
 
@@ -20,40 +21,60 @@ const Result: React.FC<Props> = ({
   typeOf,
   examples,
 }) => {
-  console.log(partOfSpeech);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    console.log((event.target as HTMLButtonElement).value);
+  };
   return (
     <div className="ResultContainer">
       <div className="Results__definition">
-        <h2>definition: </h2>
+        <h2>Definition: </h2>
         <p>{definition}</p>
+      </div>
+
+      <h3>Part of speech: {partOfSpeech}</h3>
+      <div className="Result__synonyms">
+        {synonyms && (
+          <>
+            <h3>synonyms: </h3>
+            <p>
+              {synonyms.map((item: string, index: number) => (
+                <button value={item} onClick={handleClick}>
+                  {item}
+                </button>
+              ))}
+            </p>
+          </>
+        )}
       </div>
       <div className="Results__derivation">
         {derivation && (
           <>
-            <h3>derivation: </h3>
-            <p>{derivation.map((item: string) => item)}</p>
+            <h3>Derivation: </h3>
+            <p>
+              {derivation.map((item: string, index: number) =>
+                index === derivation.length - 1 ? item : `${item}, `
+              )}
+            </p>
           </>
         )}
       </div>
-
-      <h3>partOfspeech: {partOfSpeech}</h3>
-      {synonyms && <h3>synonyms: {synonyms.map((item: string) => item)}</h3>}
       {typeOf && (
-        <h3>
-          typeOf:{" "}
-          {typeOf.map((item: string, index: number) =>
-            index === item.length - 1 ? item : <p>/{item}</p>
-          )}
-        </h3>
+        <>
+          <h3>type of:</h3>
+          <ul>
+            {typeOf.map((item: string) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </>
       )}
       {examples && (
         <>
-          <h3>examples:</h3>
+          <h3>Examples:</h3>
           <ul>
             {examples.map((item: string) => (
-              <>
-                <li>{item}</li>
-              </>
+              <li>{item}</li>
             ))}
           </ul>
         </>
