@@ -4,6 +4,7 @@ import { Button } from "@material-ui/core";
 import Results from "../../components/Results";
 import "./Home.scss";
 interface ResultsItem {
+  propsInput: any;
   definition: string | undefined;
   derivation: string[] | undefined;
   examples: string[];
@@ -20,7 +21,7 @@ interface Data {
   word: string;
 }
 function Home() {
-  const [input, setInput] = useState<string>("cook");
+  const [input, setInput] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<Data | null>(null);
 
@@ -88,8 +89,10 @@ function Home() {
           </>
         )}
         <div className="results__Container">
-          {data?.results?.map((result) => (
+          {data?.results?.map((result, index) => (
             <Results
+              propsInput={setInput}
+              key={index}
               definition={result.definition}
               derivation={result.derivation}
               hasTypes={result.hasTypes}

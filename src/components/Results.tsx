@@ -3,6 +3,7 @@ import React from "react";
 import "./Results.scss";
 
 interface Props {
+  propsInput: any;
   definition: string | undefined;
   derivation: string[] | undefined;
   hasTypes: string[];
@@ -13,6 +14,7 @@ interface Props {
 }
 
 const Result: React.FC<Props> = ({
+  propsInput,
   definition,
   derivation,
   hasTypes,
@@ -21,10 +23,12 @@ const Result: React.FC<Props> = ({
   typeOf,
   examples,
 }) => {
+  //get target.value, send to
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     console.log((event.target as HTMLButtonElement).value);
   };
+
   return (
     <div className="ResultContainer">
       <div className="Results__definition">
@@ -37,13 +41,16 @@ const Result: React.FC<Props> = ({
         {synonyms && (
           <>
             <h3>synonyms: </h3>
-            <p>
-              {synonyms.map((item: string, index: number) => (
-                <button value={item} onClick={handleClick}>
-                  {item}
-                </button>
-              ))}
-            </p>
+
+            {synonyms.map((item: string, index: number) => (
+              <button
+                className="Result__synonym"
+                value={item}
+                onClick={handleClick}
+              >
+                {item}
+              </button>
+            ))}
           </>
         )}
       </div>
