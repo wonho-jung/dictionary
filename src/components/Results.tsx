@@ -1,9 +1,9 @@
-import { Button } from "@material-ui/core";
 import React from "react";
 import "./Results.scss";
 
 interface Props {
-  propsInput: any;
+  searchWord: () => void;
+  callback: (newInput: string) => void;
   definition: string | undefined;
   derivation: string[] | undefined;
   hasTypes: string[];
@@ -14,7 +14,8 @@ interface Props {
 }
 
 const Result: React.FC<Props> = ({
-  propsInput,
+  searchWord,
+  callback,
   definition,
   derivation,
   hasTypes,
@@ -23,9 +24,11 @@ const Result: React.FC<Props> = ({
   typeOf,
   examples,
 }) => {
-  //get target.value, send to
+  //get target.value, send to parents compoent with callback function.
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+    // event.preventDefault();
+    callback((event.target as HTMLButtonElement).value);
+    searchWord();
     console.log((event.target as HTMLButtonElement).value);
   };
 
@@ -44,6 +47,7 @@ const Result: React.FC<Props> = ({
 
             {synonyms.map((item: string, index: number) => (
               <button
+                key={index}
                 className="Result__synonym"
                 value={item}
                 onClick={handleClick}
@@ -70,8 +74,8 @@ const Result: React.FC<Props> = ({
         <>
           <h3>type of:</h3>
           <ul>
-            {typeOf.map((item: string) => (
-              <li>{item}</li>
+            {typeOf.map((item: string, index: number) => (
+              <li key={index}>{item}</li>
             ))}
           </ul>
         </>
@@ -80,8 +84,8 @@ const Result: React.FC<Props> = ({
         <>
           <h3>Examples:</h3>
           <ul>
-            {examples.map((item: string) => (
-              <li>{item}</li>
+            {examples.map((item: string, index: number) => (
+              <li key={index}>{item}</li>
             ))}
           </ul>
         </>

@@ -3,6 +3,7 @@ import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
 import { Button } from "@material-ui/core";
 import Results from "../../components/Results";
 import "./Home.scss";
+import { useEffect } from "react";
 interface ResultsItem {
   propsInput: any;
   definition: string | undefined;
@@ -25,6 +26,12 @@ function Home() {
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<Data | null>(null);
 
+  console.log(input);
+  console.log(data);
+  const callbackFunction = (newInput: string) => {
+    setInput(newInput);
+  };
+
   //A user serach action with form
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,7 +44,7 @@ function Home() {
   const updateInputValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
   };
-
+  // get DATA from API with user input.
   const searchWord = async () => {
     await fetch(`https://wordsapiv1.p.rapidapi.com/words/${input}`, {
       method: "GET",
@@ -57,7 +64,6 @@ function Home() {
       })
       .finally(() => {
         setLoading(false);
-        setInput("");
       });
   };
   return (
@@ -91,8 +97,9 @@ function Home() {
         <div className="results__Container">
           {data?.results?.map((result, index) => (
             <Results
-              propsInput={setInput}
               key={index}
+              callback={callbackFunction}
+              searchWord={searchWord}
               definition={result.definition}
               derivation={result.derivation}
               hasTypes={result.hasTypes}
