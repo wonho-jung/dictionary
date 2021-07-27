@@ -26,8 +26,12 @@ function Home() {
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<Data | null>(null);
 
-  console.log(input);
-  console.log(data);
+  //Update new data and re-render with new data
+  useEffect(() => {
+    searchWord();
+  }, [input]);
+
+  //Send Props
   const callbackFunction = (newInput: string) => {
     setInput(newInput);
   };
@@ -44,6 +48,7 @@ function Home() {
   const updateInputValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
   };
+
   // get DATA from API with user input.
   const searchWord = async () => {
     await fetch(`https://wordsapiv1.p.rapidapi.com/words/${input}`, {

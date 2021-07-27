@@ -26,9 +26,8 @@ const Result: React.FC<Props> = ({
 }) => {
   //get target.value, send to parents compoent with callback function.
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    // event.preventDefault();
+    event.preventDefault();
     callback((event.target as HTMLButtonElement).value);
-    searchWord();
     console.log((event.target as HTMLButtonElement).value);
   };
 
