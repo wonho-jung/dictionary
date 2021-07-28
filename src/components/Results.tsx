@@ -28,6 +28,7 @@ const Result: React.FC<Props> = ({
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     callback((event.target as HTMLButtonElement).value);
+    searchWord();
     console.log((event.target as HTMLButtonElement).value);
   };
 

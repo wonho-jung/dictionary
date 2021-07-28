@@ -26,7 +26,7 @@ function Home() {
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<Data | null>(null);
 
-  //Update new data and re-render with new data
+  //Update new results of API when input value change but I don't know it's best way. Is there another way to do it?
   useEffect(() => {
     searchWord();
   }, [input]);
