@@ -1,8 +1,9 @@
 import React from "react";
+import { useEffect } from "react";
 import "./Results.scss";
 
 interface Props {
-  searchWord: () => void;
+  searchWord: (inputvalue: string) => void;
   callback: (newInput: string) => void;
   definition: string | undefined;
   derivation: string[] | undefined;
@@ -26,9 +27,10 @@ const Result: React.FC<Props> = ({
 }) => {
   //get target.value, send to parents compoent with callback function.
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+    // This function change parents component state value and it work right away.
     callback((event.target as HTMLButtonElement).value);
-    searchWord();
+    //this function was was supposed to update New results of API and re-render but didn't work.
+    // searchWord();
     console.log((event.target as HTMLButtonElement).value);
   };
 

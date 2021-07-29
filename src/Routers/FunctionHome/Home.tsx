@@ -25,22 +25,13 @@ function Home() {
   const [input, setInput] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<Data | null>(null);
-
-  //Update new results of API when input value change but I don't know it's best way. Is there another way to do it?
-  useEffect(() => {
-    searchWord();
-  }, [input]);
-
-  //Send Props
-  const callbackFunction = (newInput: string) => {
-    setInput(newInput);
-  };
+  console.log(data);
 
   //A user serach action with form
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (input.length > 0) {
-      searchWord();
+      searchWord(input);
     }
   };
 
@@ -49,9 +40,14 @@ function Home() {
     setInput(event.target.value);
   };
 
+  //Send Props
+  const callbackFunction = (newInput: string) => {
+    setInput(newInput);
+    searchWord(newInput);
+  };
   // get DATA from API with user input.
-  const searchWord = async () => {
-    await fetch(`https://wordsapiv1.p.rapidapi.com/words/${input}`, {
+  const searchWord = (inputvalue: string) => {
+    fetch(`https://wordsapiv1.p.rapidapi.com/words/${inputvalue}`, {
       method: "GET",
       headers: {
         "x-rapidapi-key": `${process.env.REACT_APP_API_KEY}`,
