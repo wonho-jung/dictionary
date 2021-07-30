@@ -3,7 +3,7 @@ import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
 import { Button } from "@material-ui/core";
 import Results from "../../components/Results";
 import "./Home.scss";
-import { useEffect } from "react";
+import Sound from "../../components/Sound";
 interface ResultsItem {
   propsInput: any;
   definition: string | undefined;
@@ -25,7 +25,7 @@ function Home() {
   const [input, setInput] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<Data | null>(null);
-  console.log(data);
+  console.log(input);
 
   //A user serach action with form
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -70,11 +70,11 @@ function Home() {
   return (
     <div className="Container">
       <div className="navbar">
-        <div className="navbar_left">
+        <div className="navbar__left">
           <LocalLibraryIcon fontSize="large" style={{ color: "#fff" }} />
           <h5>Won's dictionary</h5>
         </div>
-        <div className="navbar_right">
+        <div className="navbar__right">
           <form onSubmit={handleSubmit}>
             <input
               placeholder="Search word..."
@@ -92,6 +92,8 @@ function Home() {
             <h1>
               {data?.word} {data?.pronunciation?.all}
             </h1>
+
+            <Sound />
             {data.frequency && <h1>frequency:{data?.frequency}</h1>}
           </>
         )}
@@ -100,7 +102,6 @@ function Home() {
             <Results
               key={index}
               callback={callbackFunction}
-              searchWord={searchWord}
               definition={result.definition}
               derivation={result.derivation}
               hasTypes={result.hasTypes}

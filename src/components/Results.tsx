@@ -1,9 +1,8 @@
 import React from "react";
 import { useEffect } from "react";
 import "./Results.scss";
-
+import StarBorderIcon from "@material-ui/icons/StarBorder";
 interface Props {
-  searchWord: (inputvalue: string) => void;
   callback: (newInput: string) => void;
   definition: string | undefined;
   derivation: string[] | undefined;
@@ -15,7 +14,6 @@ interface Props {
 }
 
 const Result: React.FC<Props> = ({
-  searchWord,
   callback,
   definition,
   derivation,
@@ -36,11 +34,11 @@ const Result: React.FC<Props> = ({
 
   return (
     <div className="ResultContainer">
+      <StarBorderIcon />
       <div className="Results__definition">
         <h2>Definition: </h2>
         <p>{definition}</p>
       </div>
-
       <h3>Part of speech: {partOfSpeech}</h3>
       <div className="Result__synonyms">
         {synonyms && (
