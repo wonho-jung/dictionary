@@ -1,5 +1,4 @@
 import React from "react";
-import { useEffect } from "react";
 import "./Results.scss";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 interface Props {

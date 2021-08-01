@@ -25,7 +25,7 @@ function Home() {
   const [input, setInput] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<Data | null>(null);
-  console.log(input);
+  console.log(data);
 
   //A user serach action with form
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -71,7 +71,7 @@ function Home() {
     <div className="Container">
       <div className="navbar">
         <div className="navbar__left">
-          <LocalLibraryIcon fontSize="large" style={{ color: "#fff" }} />
+          <LocalLibraryIcon className="Home__LocalLibraryIcon" />
           <h5>Won's dictionary</h5>
         </div>
         <div className="navbar__right">
@@ -93,8 +93,8 @@ function Home() {
               {data?.word} {data?.pronunciation?.all}
             </h1>
 
-            <Sound />
-            {data.frequency && <h1>frequency:{data?.frequency}</h1>}
+            <Sound input={input} />
+            {data.frequency && <h1>frequency: {data?.frequency}/7</h1>}
           </>
         )}
         <div className="results__Container">
