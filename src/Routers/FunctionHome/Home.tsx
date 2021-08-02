@@ -15,17 +15,19 @@ interface ResultsItem {
   hasTypes: string[];
 }
 interface Data {
-  frequency: number;
-  pronunciation: { all: string };
-  results: ResultsItem[];
-  syllables: { count: number; list: [] };
-  word: string;
+  frequency?: number;
+  pronunciation?: { all: string };
+  results?: ResultsItem[];
+  syllables?: { count: number; list: [] };
+  word?: string;
+  success?: boolean;
+  message?: string;
 }
 function Home() {
   const [input, setInput] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
-  const [data, setData] = useState<Data | null>(null);
-  console.log(data);
+  const [data, setData] = useState<Data>({});
+  console.log(data.success);
 
   //A user serach action with form
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -61,7 +63,7 @@ function Home() {
         setData(results);
       })
       .catch((err) => {
-        alert(err.message);
+        console.log(err);
       })
       .finally(() => {
         setLoading(false);
@@ -71,7 +73,10 @@ function Home() {
     <div className="Container">
       <div className="navbar">
         <div className="navbar__left">
-          <LocalLibraryIcon className="Home__LocalLibraryIcon" />
+          <LocalLibraryIcon
+            className="Home__LocalLibraryIcon"
+            fontSize="large"
+          />
           <h5>Won's dictionary</h5>
         </div>
         <div className="navbar__right">
@@ -87,7 +92,7 @@ function Home() {
       </div>
 
       <div className="word__container">
-        {data && (
+        {data.success !== false && (
           <>
             <h1>
               {data?.word} {data?.pronunciation?.all}

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Results.scss";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
+import StarIcon from "@material-ui/icons/Star";
 interface Props {
   callback: (newInput: string) => void;
   definition: string | undefined;
@@ -22,18 +23,27 @@ const Result: React.FC<Props> = ({
   typeOf,
   examples,
 }) => {
+  const [favor, setFavor] = useState<boolean>(true);
   //get target.value, send to parents compoent with callback function.
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     // This function change parents component state value and it work right away.
     callback((event.target as HTMLButtonElement).value);
-    //this function was was supposed to update New results of API and re-render but didn't work.
-    // searchWord();
-    console.log((event.target as HTMLButtonElement).value);
+  };
+
+  const favoriteBtn = () => {
+    setFavor(false);
+  };
+  const undofavoriteBtn = () => {
+    setFavor(true);
   };
 
   return (
     <div className="ResultContainer">
-      <StarBorderIcon />
+      {favor ? (
+        <StarBorderIcon onClick={favoriteBtn} className="" />
+      ) : (
+        <StarIcon onClick={undofavoriteBtn} className="" />
+      )}
       <div className="Results__definition">
         <h2>Definition: </h2>
         <p>{definition}</p>
