@@ -7,7 +7,6 @@ interface Props {
 }
 
 const Sound: React.FC<Props> = ({ input }) => {
-  console.log(input);
   const { speak } = useSpeechSynthesis();
 
   return (

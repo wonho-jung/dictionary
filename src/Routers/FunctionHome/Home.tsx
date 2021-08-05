@@ -27,7 +27,7 @@ function Home() {
   const [input, setInput] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<Data>({});
-  console.log(data.success);
+  console.log(data);
 
   //A user serach action with form
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -92,12 +92,11 @@ function Home() {
       </div>
 
       <div className="word__container">
-        {data.success !== false && (
+        {data.word && data.success !== false && (
           <>
             <h1>
               {data?.word} {data?.pronunciation?.all}
             </h1>
-
             <Sound input={input} />
             {data.frequency && <h1>frequency: {data?.frequency}/7</h1>}
           </>
