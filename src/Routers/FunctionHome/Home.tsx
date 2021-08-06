@@ -4,6 +4,9 @@ import { Button } from "@material-ui/core";
 import Results from "../../components/Results";
 import "./Home.scss";
 import Sound from "../../components/Sound";
+import { db } from "../../firebase";
+import { useEffect } from "react";
+import { ContactSupportOutlined } from "@material-ui/icons";
 interface ResultsItem {
   propsInput: any;
   definition: string | undefined;
@@ -23,12 +26,33 @@ interface Data {
   success?: boolean;
   message?: string;
 }
+interface Word {
+  id: string;
+  definition: string | null;
+  derivation: string[] | null;
+  hasTypes: string[];
+  partOfSpeech: string;
+  synonyms: string[];
+  typeOf: string[];
+  examples: string[] | null;
+}
 function Home() {
   const [input, setInput] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<Data>({});
-  console.log(data);
+  const [word, setWords] = useState<Word | any>([]);
 
+  console.log(word);
+  useEffect(() => {
+    db.collection("words").onSnapshot((snapshot) => {
+      const wordArray = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setWords(wordArray);
+      console.log();
+    });
+  }, []);
   //A user serach action with form
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

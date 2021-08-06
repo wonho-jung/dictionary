@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./Results.scss";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import StarIcon from "@material-ui/icons/Star";
+import { db } from "../firebase";
+
 interface Props {
   callback: (newInput: string) => void;
   definition: string | undefined;
@@ -32,7 +34,18 @@ const Result: React.FC<Props> = ({
 
   const favoriteBtn = () => {
     setFavor(false);
+    db.collection("words")
+      .doc()
+      .set({
+        definition: definition ? definition : null,
+        derivation: derivation ? derivation : null,
+        partOfSpeech: partOfSpeech,
+        synonyms: synonyms,
+        typeOf: typeOf,
+        examples: examples ? examples : null,
+      });
   };
+
   const undofavoriteBtn = () => {
     setFavor(true);
   };
