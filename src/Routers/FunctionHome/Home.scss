@@ -1,12 +1,25 @@
 .navbar {
-  .navbar__left {
+  .navbar__top {
+    width: 100%;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    .MuiSvgIcon-root {
-      color: #fff;
+    justify-content: space-around;
+    .navbar__top__left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .MuiSvgIcon-root {
+        color: #fff;
+      }
+    }
+    .navbar__top__right {
+      .MuiAvatar-root {
+        margin: 10px 0;
+      }
     }
   }
+  flex-direction: column;
+
   padding: 0 1rem;
   height: 150px;
   width: 100%;
@@ -30,14 +43,16 @@
     font-size: 1rem;
     border-radius: 5px;
   }
-  button {
-    height: 30px;
-    font-size: 1rem;
-    border-radius: 5px;
-    background-color: #e6425e;
-    border: 1px solid #fff;
-    cursor: pointer;
-    color: #fff;
+  .navbar__bottom {
+    button {
+      height: 30px;
+      font-size: 1rem;
+      border-radius: 5px;
+      background-color: #e6425e;
+      border: 1px solid #fff;
+      cursor: pointer;
+      color: #fff;
+    }
   }
 }
 

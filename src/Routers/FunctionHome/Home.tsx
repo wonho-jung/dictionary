@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
-import { Button } from "@material-ui/core";
+import { Avatar, Button } from "@material-ui/core";
 import Results from "../../components/Results";
 import "./Home.scss";
 import Sound from "../../components/Sound";
 import { db } from "../../firebase";
 import { useEffect } from "react";
-import { ContactSupportOutlined } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 interface ResultsItem {
   propsInput: any;
   definition: string | undefined;
@@ -96,14 +96,22 @@ function Home() {
   return (
     <div className="Container">
       <div className="navbar">
-        <div className="navbar__left">
-          <LocalLibraryIcon
-            className="Home__LocalLibraryIcon"
-            fontSize="large"
-          />
-          <h5>Won's dictionary</h5>
+        <div className="navbar__top">
+          <div className="navbar__top__left">
+            <LocalLibraryIcon
+              className="Home__LocalLibraryIcon"
+              fontSize="large"
+            />
+            <h5>Won's dictionary</h5>
+          </div>
+          <div className="navbar__top__right">
+            <Link to="/favorite">
+              <Avatar />
+            </Link>
+            <button>Sign In</button>
+          </div>
         </div>
-        <div className="navbar__right">
+        <div className="navbar__bottom">
           <form onSubmit={handleSubmit}>
             <input
               placeholder="Search word..."
