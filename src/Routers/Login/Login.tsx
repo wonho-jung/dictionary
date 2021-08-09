@@ -7,7 +7,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("hello");
+    console.log("hello from mac");
   };
 
   // const handleChange = (event) => {
