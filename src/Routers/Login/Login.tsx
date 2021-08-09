@@ -5,7 +5,10 @@ const Login = () => {
   const [password, setPassword] = useState("");
   console.log(email);
 
-  const handleSubmit = () => console.log("hello");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("hello");
+  };
 
   // const handleChange = (event) => {
   //   const target = event.target.name;
