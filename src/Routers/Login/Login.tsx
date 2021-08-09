@@ -7,22 +7,21 @@ const Login = () => {
 
   const handleSubmit = () => console.log("hello");
 
-  const handleChange = (event) => {
-    const target = event.target.name;
-    console.log(event.target.name, event.target.value);
-    if (target === email) {
-      setEmail(event.target.value);
-    } else if (target === password) {
-      setPassword(event.target.value);
-    }
-  };
+  // const handleChange = (event) => {
+  //   const target = event.target.name;
+  //   console.log(event);
+  //   if (target === email) {
+  //     setEmail(event.target.value);
+  //   } else if (target === password) {
+  //     setPassword(event.target.value);
+  //   }
+  // };
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="email"
           placeholder="Email"
           required
           value={email}
@@ -30,11 +29,10 @@ const Login = () => {
         />
         <input
           type="password"
-          name="Password"
           placeholder="Password"
           required
           value={password}
-          onChange={handleChange}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">click</button>
       </form>
