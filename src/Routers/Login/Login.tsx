@@ -8,6 +8,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("hello from mac");
+    console.log("last test");
   };
 
   // const handleChange = (event) => {
