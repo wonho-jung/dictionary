@@ -5,8 +5,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   console.log(email);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     console.log("hello from mac");
     console.log("from window");
   };
