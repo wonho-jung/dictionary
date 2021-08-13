@@ -3,23 +3,16 @@ import "./Login.scss";
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<number | string>("");
+  const [newAccount, setNewAccount] = useState<boolean>(true);
   console.log(email);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("hello from mac");
-    console.log("from window");
   };
 
-  // const handleChange = (event) => {
-  //   const target = event.target.name;
-  //   console.log(event);
-  //   if (target === email) {
-  //     setEmail(event.target.value);
-  //   } else if (target === password) {
-  //     setPassword(event.target.value);
-  //   }
-  // };
+  const toggleAccount = () => {
+    setNewAccount((prev) => !prev);
+  };
 
   return (
     <div className="login">
@@ -39,9 +32,13 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit">Sign In</button>
+          <button type="submit">
+            {newAccount ? "Creat Account" : "Sign In"}
+          </button>
           <button>Sign In with Google</button>
-          <span>Create Account</span>
+          <span className="login__switch" onClick={toggleAccount}>
+            {newAccount ? "Sign In" : "Create Account"}{" "}
+          </span>
         </form>
       </div>
     </div>
