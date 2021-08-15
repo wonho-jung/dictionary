@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { auth, provider } from "../../firebase";
 import "./Login.scss";
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -13,6 +14,17 @@ const Login = () => {
   const toggleAccount = () => {
     setNewAccount((prev) => !prev);
   };
+
+  const googleLogin = () => {
+    auth.signInWithPopup(provider);
+  };
+  useEffect(() => {}, [
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log(user);
+      }
+    }),
+  ]);
 
   return (
     <div className="login">
@@ -35,7 +47,7 @@ const Login = () => {
           <button type="submit">
             {newAccount ? "Creat Account" : "Sign In"}
           </button>
-          <button>Sign In with Google</button>
+          <button onClick={googleLogin}>Sign In with Google</button>
           <span className="login__switch" onClick={toggleAccount}>
             {newAccount ? "Sign In" : "Create Account"}{" "}
           </span>
