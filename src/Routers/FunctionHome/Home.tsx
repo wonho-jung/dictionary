@@ -4,7 +4,7 @@ import { Avatar, Button } from "@material-ui/core";
 import Results from "../../components/Results";
 import "./Home.scss";
 import Sound from "../../components/Sound";
-import { db } from "../../firebase";
+import { auth, db } from "../../firebase";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 interface ResultsItem {
@@ -51,6 +51,13 @@ function Home() {
       }));
       setWords(wordArray);
       console.log();
+    });
+  }, []);
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log(user);
+      }
     });
   }, []);
   //A user serach action with form
@@ -108,7 +115,9 @@ function Home() {
             <Link to="/favorite">
               <Avatar />
             </Link>
-            <button>Sign In</button>
+            <Link to="/login">
+              <button>Sign In</button>
+            </Link>
           </div>
         </div>
         <div className="navbar__bottom">

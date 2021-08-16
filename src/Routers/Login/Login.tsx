@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { auth, provider } from "../../firebase";
+import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
+import { Link } from "react-router-dom";
 import "./Login.scss";
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -18,17 +20,13 @@ const Login = () => {
   const googleLogin = () => {
     auth.signInWithPopup(provider);
   };
-  useEffect(() => {}, [
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        console.log(user);
-      }
-    }),
-  ]);
 
   return (
     <div className="login">
       <div className="login__form__container">
+        <Link to="/">
+          <LocalLibraryIcon fontSize="large" />
+        </Link>
         <form onSubmit={handleSubmit}>
           <input
             type="text"

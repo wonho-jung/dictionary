@@ -9,6 +9,13 @@
   max-width: 300px;
   padding: 100px;
   background-color: #1111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .MuiSvgIcon-root {
+    color: #111;
+    margin-bottom: 2rem;
+  }
   form {
     display: flex;
     flex-direction: column;
