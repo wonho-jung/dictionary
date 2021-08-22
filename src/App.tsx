@@ -13,13 +13,18 @@ interface User {
 }
 
 function App() {
-  const [user, setUser] = useState<User>({ display, email, uid });
-  console.log(user);
+  const [user, setUser] = useState<User>({
+    displayName: "",
+    email: "",
+    uid: "",
+  });
+  console.log(auth);
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      if (user) {
+      if (user !== null) {
+        console.log(user.displayName, user.email, user.uid);
         setUser({
-          userId: user.displayName,
+          displayName: user.displayName,
           email: user.email,
           uid: user.uid,
         });
