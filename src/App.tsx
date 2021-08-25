@@ -7,8 +7,8 @@ import Login from "./Routers/Login/Login";
 import { auth } from "./firebase";
 
 interface User {
-  displayName: string;
-  email: string;
+  displayName: string | null;
+  email: string | null;
   uid: string;
 }
 
@@ -31,12 +31,13 @@ function App() {
       }
     });
   }, []);
+  console.log(user);
   return (
     <div className="App">
       <Router>
         <Switch>
           <Route path="/favorite">
-            <Favorite />
+            <Favorite user={user} />
           </Route>
           <Route path="/login">
             <Login />

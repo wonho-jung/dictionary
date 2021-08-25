@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { auth, provider } from "../../firebase";
 import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
 import { Link } from "react-router-dom";
 import "./Login.scss";
+import { useHistory } from "react-router";
+
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<number | string>("");
   const [newAccount, setNewAccount] = useState<boolean>(true);
-  console.log(email);
+  const history = useHistory();
+  console.log(history.push);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -17,8 +20,14 @@ const Login = () => {
     setNewAccount((prev) => !prev);
   };
 
-  const googleLogin = () => {
-    auth.signInWithPopup(provider);
+  const googleLogin = (e) => {
+    e.preventDefault();
+    auth
+      .signInWithPopup(provider)
+      .then(() => {
+        history.push("/");
+      })
+      .catch((err) => alert(err.message));
   };
 
   return (
@@ -45,7 +54,7 @@ const Login = () => {
           <button type="submit">
             {newAccount ? "Creat Account" : "Sign In"}
           </button>
-          <button onClick={googleLogin}>Sign In with Google</button>
+          <button onClick={(e) => googleLogin(e)}>Sign In with Google</button>
           <span className="login__switch" onClick={toggleAccount}>
             {newAccount ? "Sign In" : "Create Account"}{" "}
           </span>

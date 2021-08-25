@@ -1,0 +1,23 @@
+.sidebarContainer {
+  flex: 0.2;
+  background-color: #e6425e;
+  color: #fff;
+}
+
+.sidebar__head {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid rgba(235, 228, 228, 0.308);
+
+  border-bottom: 1px solid rgba(235, 228, 228, 0.308);
+}
+
+.sidebar__user {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(235, 228, 228, 0.308);
+}

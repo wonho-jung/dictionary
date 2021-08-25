@@ -1,0 +1,19 @@
+.sidebarOption {
+  width: 100%;
+  &:hover {
+    opacity: 0.9;
+    background-color: #bb46637c;
+  }
+}
+
+.sidebarOption__channelName {
+  padding: 1rem;
+  display: flex;
+  font-size: 12px;
+  align-items: center;
+  padding-left: 15px;
+  cursor: pointer;
+  h3 {
+    padding-left: 7px;
+  }
+}
