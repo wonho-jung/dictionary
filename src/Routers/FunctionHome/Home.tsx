@@ -6,7 +6,7 @@ import "./Home.scss";
 import Sound from "../../components/Sound";
 import { auth, db } from "../../firebase";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 interface ResultsItem {
   propsInput: any;
   definition: string | undefined;
@@ -36,13 +36,22 @@ interface Word {
   typeOf: string[];
   examples: string[] | null;
 }
-function Home() {
+interface User {
+  user: {
+    displayName?: string | null;
+    email?: string | null;
+    uid?: string | null;
+  };
+  userCallback: (arg: any) => void;
+}
+const Home: React.FC<User> = ({ user, userCallback }) => {
   const [input, setInput] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<Data>({});
   const [word, setWords] = useState<Word | any>([]);
+  const history = useHistory();
 
-  console.log(word);
+  console.log(user);
   useEffect(() => {
     db.collection("words").onSnapshot((snapshot) => {
       const wordArray = snapshot.docs.map((doc) => ({
@@ -100,6 +109,13 @@ function Home() {
         setLoading(false);
       });
   };
+
+  const signOut = (e) => {
+    e.preventDefault();
+    auth.signOut();
+    userCallback(null);
+    history.push("/login");
+  };
   return (
     <div className="Container">
       <div className="navbar">
@@ -115,8 +131,13 @@ function Home() {
             <Link to="/favorite">
               <Avatar />
             </Link>
+
             <Link to="/login">
-              <button>Sign In</button>
+              {user.displayName && user.email && user.uid ? (
+                <button onClick={(e) => signOut(e)}>Sign Out</button>
+              ) : (
+                <button>Sign In</button>
+              )}
             </Link>
           </div>
         </div>
@@ -160,6 +181,6 @@ function Home() {
       </div>
     </div>
   );
-}
+};
 
 export default Home;

@@ -7,16 +7,16 @@ import Login from "./Routers/Login/Login";
 import { auth } from "./firebase";
 
 interface User {
-  displayName: string | null;
-  email: string | null;
-  uid: string;
+  displayName?: string | null;
+  email?: string | null;
+  uid?: string | null;
 }
 
 function App() {
   const [user, setUser] = useState<User>({
-    displayName: "",
-    email: "",
-    uid: "",
+    displayName: null,
+    email: null,
+    uid: null,
   });
   console.log(auth);
   useEffect(() => {
@@ -31,7 +31,13 @@ function App() {
       }
     });
   }, []);
-  console.log(user);
+  const userStateCallBack = (arg: any) => {
+    setUser({
+      displayName: arg,
+      email: arg,
+      uid: arg,
+    });
+  };
   return (
     <div className="App">
       <Router>
@@ -43,7 +49,7 @@ function App() {
             <Login />
           </Route>
           <Route path="/">
-            <Home />
+            <Home user={user} userCallback={userStateCallBack} />
           </Route>
         </Switch>
       </Router>
