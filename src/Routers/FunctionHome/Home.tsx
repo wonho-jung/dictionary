@@ -128,15 +128,23 @@ const Home: React.FC<User> = ({ user, userCallback }) => {
             <h5>Won's dictionary</h5>
           </div>
           <div className="navbar__top__right">
-            <Link to="/favorite">
-              <Avatar />
-            </Link>
+            {user.displayName && user.email && user.uid ? (
+              <Link to="/favorite">
+                <Avatar className="avatar" />
+              </Link>
+            ) : (
+              <Link className="avatar" to="/login">
+                <Avatar />
+              </Link>
+            )}
 
             <Link to="/login">
               {user.displayName && user.email && user.uid ? (
-                <button onClick={(e) => signOut(e)}>Sign Out</button>
+                <button className="loginbutton" onClick={(e) => signOut(e)}>
+                  Sign Out
+                </button>
               ) : (
-                <button>Sign In</button>
+                <button className="loginbutton">Sign In</button>
               )}
             </Link>
           </div>
