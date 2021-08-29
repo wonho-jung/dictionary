@@ -7,7 +7,7 @@ import { useHistory } from "react-router";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<number | string>("");
+  const [password, setPassword] = useState<string>("");
   const [newAccount, setNewAccount] = useState<boolean>(true);
   const history = useHistory();
   console.log(history.push);
@@ -28,6 +28,24 @@ const Login = () => {
         history.push("/");
       })
       .catch((err) => alert(err.message));
+  };
+  const userLogin = async (e) => {
+    e.preventDefault();
+    let signIn;
+    try {
+      if (newAccount) {
+        signIn = await auth.createUserWithEmailAndPassword(email, password);
+      } else {
+        signIn = await auth.signInWithEmailAndPassword(email, password);
+      }
+      console.log(signIn);
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setEmail("");
+      setPassword("");
+      history.push("/");
+    }
   };
 
   return (
@@ -51,7 +69,7 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit">
+          <button type="submit" onClick={userLogin}>
             {newAccount ? "Creat Account" : "Sign In"}
           </button>
           <button onClick={(e) => googleLogin(e)}>Sign In with Google</button>
