@@ -139,7 +139,7 @@ const Home: React.FC<User> = ({ user, userCallback }) => {
             )}
 
             <Link to="/login">
-              {user.displayName && user.email && user.uid ? (
+              {user.email && user.uid ? (
                 <button className="loginbutton" onClick={(e) => signOut(e)}>
                   Sign Out
                 </button>
