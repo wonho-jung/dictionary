@@ -7,6 +7,8 @@ import Sound from "../../components/Sound";
 import { auth, db } from "../../firebase";
 import { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
+
 interface ResultsItem {
   propsInput: any;
   definition: string | undefined;
@@ -73,7 +75,8 @@ const Home: React.FC<User> = ({ user, userCallback }) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (input.length > 0) {
-      searchWord(input);
+      // searchWord(input);
+      wordapi();
     }
   };
 
@@ -108,6 +111,24 @@ const Home: React.FC<User> = ({ user, userCallback }) => {
       .finally(() => {
         setLoading(false);
       });
+  };
+  const api = axios.create({
+    method: "GET",
+    baseURL: "https://wordsapiv1.p.rapidapi.com/words/",
+    headers: {
+      "x-rapidapi-key": `${process.env.REACT_APP_API_KEY}`,
+      "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
+    },
+  });
+  const wordapi = async () => {
+    try {
+      const word = await api.get("test");
+      console.log(word);
+    } catch (e) {
+      alert(e.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const signOut = (e) => {
