@@ -28,10 +28,12 @@ function App() {
         "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
         "(\\#[-a-z\\d_]*)?$",
       "i"
-    ); // fragment locator
+    ); // fragment locatorasdfasdfasdf
     return !!pattern.test(str);
   }
   validURL(str);
+  console.log(validURL);
+  console.log(validURL);
   console.log(validURL);
   console.log(auth);
   useEffect(() => {
