@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Favorite from "./Routers/Favorite/Favorite";
 import Login from "./Routers/Login/Login";
 import { auth } from "./firebase";
-
 interface User {
   displayName?: string | null;
   email?: string | null;
@@ -18,6 +17,22 @@ function App() {
     email: null,
     uid: null,
   });
+
+  let str = "asdfasdf";
+  function validURL(str) {
+    var pattern = new RegExp(
+      "^(https?:\\/\\/)?" + // protocol
+        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+        "(\\#[-a-z\\d_]*)?$",
+      "i"
+    ); // fragment locator
+    return !!pattern.test(str);
+  }
+  validURL(str);
+  console.log(validURL);
   console.log(auth);
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -38,6 +53,8 @@ function App() {
       uid: arg,
     });
   };
+  var validUrl = require("valid-url");
+
   return (
     <div className="App">
       <Router>
